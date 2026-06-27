@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <rect width="32" height="32" fill="#0a0e12"/>
+  <rect x="3" y="3" width="26" height="26" fill="none" stroke="#22d3ee" stroke-width="1" stroke-opacity="0.35"/>
+  <path d="M6 6 L6 10 M6 6 L10 6" stroke="#22d3ee" stroke-width="1.2"/>
+  <path d="M26 26 L26 22 M26 26 L22 26" stroke="#22d3ee" stroke-width="1.2"/>
+  <text x="16" y="21" font-family="monospace" font-size="13" font-weight="700" fill="#22d3ee" text-anchor="middle">PC</text>
+</svg>
