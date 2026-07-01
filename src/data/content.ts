@@ -38,6 +38,7 @@ export interface Project {
   tech: string[];
   github: string;
   flagship?: boolean;
+  install?: string;
   metrics: { label: string; value: string }[];
 }
 
@@ -53,6 +54,7 @@ export const projects: Project[] = [
     tech: ['Python', 'PyPI', 'pre-commit', 'Click'],
     github: 'https://github.com/pabloncf/envsafe',
     flagship: true,
+    install: 'pip install envsafe',
     metrics: [
       { label: 'distribution', value: 'pip install' },
       { label: 'integration', value: 'pre-commit + CI' },
@@ -117,6 +119,8 @@ export const projects: Project[] = [
     highlight: 'Published to PyPI — drop it into any pipeline as a security gate.',
     tech: ['Python', 'PyPI', 'CLI', 'CI/CD'],
     github: 'https://github.com/pabloncf/secheaders',
+    flagship: true,
+    install: 'pip install secheaders',
     metrics: [
       { label: 'scoring', value: '0–100 + grade' },
       { label: 'output', value: 'JSON · HTML · CSV' },

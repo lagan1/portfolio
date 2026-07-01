@@ -1,12 +1,12 @@
 import { useEffect, useRef, useState } from 'react';
 
-interface Line {
+export interface Line {
   text: string;
   type: 'prompt' | 'out' | 'ok' | 'warn' | 'accent';
   delay?: number;
 }
 
-const SCRIPT: Line[] = [
+export const ENVSAFE_SCRIPT: Line[] = [
   { text: '$ pip install envsafe', type: 'prompt' },
   { text: 'Collecting envsafe', type: 'out', delay: 300 },
   { text: 'Successfully installed envsafe-1.2.0', type: 'ok', delay: 250 },
@@ -21,6 +21,21 @@ const SCRIPT: Line[] = [
   { text: '→ wired into pre-commit + CI. nothing leaks.', type: 'out', delay: 300 },
 ];
 
+export const SECHEADERS_SCRIPT: Line[] = [
+  { text: '$ pip install secheaders', type: 'prompt' },
+  { text: 'Collecting secheaders', type: 'out', delay: 300 },
+  { text: 'Successfully installed secheaders-1.0.0', type: 'ok', delay: 250 },
+  { text: '$ secheaders scan https://example.com', type: 'prompt', delay: 500 },
+  { text: 'secheaders :: auditing response headers…', type: 'out', delay: 250 },
+  { text: '✓ Strict-Transport-Security   present', type: 'ok', delay: 200 },
+  { text: '! Content-Security-Policy     missing', type: 'warn', delay: 200 },
+  { text: '! X-Frame-Options             missing (clickjacking)', type: 'warn', delay: 200 },
+  { text: '✓ X-Content-Type-Options      nosniff', type: 'ok', delay: 200 },
+  { text: '', type: 'out', delay: 150 },
+  { text: 'score: 68/100 · grade B · exit 1', type: 'accent', delay: 200 },
+  { text: '→ wire --fail-under into CI. ship secure headers.', type: 'out', delay: 300 },
+];
+
 const COLORS: Record<Line['type'], string> = {
   prompt: 'var(--fg)',
   out: 'var(--fg-dim)',
@@ -29,8 +44,14 @@ const COLORS: Record<Line['type'], string> = {
   accent: 'var(--accent)',
 };
 
-/** Self-typing terminal that demos the envsafe CLI. Starts when scrolled into view. */
-export default function Terminal() {
+interface TerminalProps {
+  script?: Line[];
+  title?: string;
+}
+
+/** Self-typing terminal that demos a CLI. Starts when scrolled into view. */
+export default function Terminal({ script = ENVSAFE_SCRIPT, title = 'envsafe' }: TerminalProps) {
+  const SCRIPT = script;
   const ref = useRef<HTMLDivElement>(null);
   const [visibleLines, setVisibleLines] = useState<Line[]>([]);
   const [typing, setTyping] = useState('');
@@ -171,7 +192,7 @@ export default function Terminal() {
           <span className="h-2.5 w-2.5 rounded-full border border-line-strong" />
         </div>
         <span className="font-mono text-[10px] uppercase tracking-widest text-[#5b6770]">
-          zsh — envsafe — 80×24
+          zsh — {title} — 80×24
         </span>
         <button
           onClick={replay}

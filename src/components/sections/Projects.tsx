@@ -3,19 +3,28 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { projects, type Project } from '../../data/content';
 import SectionHeader from '../SectionHeader';
 import Reveal from '../Reveal';
-import Terminal from '../Terminal';
+import Terminal, { ENVSAFE_SCRIPT, SECHEADERS_SCRIPT, type Line } from '../Terminal';
 import Magnetic from '../Magnetic';
 
+const TERMINAL_SCRIPTS: Record<string, Line[]> = {
+  envsafe: ENVSAFE_SCRIPT,
+  secheaders: SECHEADERS_SCRIPT,
+};
+
 export default function Projects() {
-  const flagship = projects.find((p) => p.flagship)!;
+  const flagships = projects.filter((p) => p.flagship);
   const rest = projects.filter((p) => !p.flagship);
 
   return (
     <section id="projects" className="relative mx-auto max-w-7xl px-5 py-24 sm:px-8 md:py-32">
-      <SectionHeader index="02 / WORK" title="Things I've built" note="4 SELECTED" />
+      <SectionHeader index="02 / WORK" title="Things I've built" note="5 SELECTED" />
 
-      {/* Flagship — envsafe */}
-      <Flagship project={flagship} />
+      {/* Flagships — published to PyPI */}
+      <div className="space-y-10">
+        {flagships.map((p) => (
+          <Flagship key={p.id} project={p} />
+        ))}
+      </div>
 
       {/* Rest */}
       <div className="mt-20 border-t border-line-strong">
@@ -73,13 +82,13 @@ function Flagship({ project }: { project: Project }) {
                 <span className="transition-transform group-hover:translate-x-0.5">↗</span>
               </a>
             </Magnetic>
-            <CopyInstall command="pip install envsafe" />
+            {project.install && <CopyInstall command={project.install} />}
           </div>
         </div>
 
         {/* Right: terminal */}
         <div className="flex items-center">
-          <Terminal />
+          <Terminal script={TERMINAL_SCRIPTS[project.id]} title={project.name} />
         </div>
       </div>
     </Reveal>
