@@ -5,34 +5,29 @@ export default {
   theme: {
     extend: {
       colors: {
-        // Blueprint palette — dark base, paper light base, cyan accent
+        // Terminal palette — phosphor green on near-black, paper light mode
         ink: {
-          DEFAULT: '#0a0e12',
-          50: '#0d1217',
-          100: '#11171d',
-          200: '#161d24',
-          300: '#1d262f',
+          DEFAULT: '#0a0e0b',
+          50: '#0d120e',
+          100: '#101611',
+          200: '#151c16',
+          300: '#1c241d',
         },
         paper: {
-          DEFAULT: '#f4f1ea',
-          100: '#eceae1',
-          200: '#dedacd',
+          DEFAULT: '#f4f1e6',
+          100: '#ebe7d9',
+          200: '#ddd8c6',
         },
         accent: {
-          DEFAULT: '#22d3ee',
-          soft: '#67e8f9',
-          deep: '#0891b2',
+          DEFAULT: '#4ade80',
+          soft: '#86efac',
+          deep: '#16a34a',
         },
-        line: {
-          dark: 'rgba(120, 200, 215, 0.14)',
-          'dark-strong': 'rgba(120, 200, 215, 0.28)',
-          light: 'rgba(20, 40, 50, 0.14)',
-          'light-strong': 'rgba(20, 40, 50, 0.30)',
-        },
+        warn: '#fbbf24',
+        err: '#f87171',
       },
       fontFamily: {
         mono: ['"JetBrains Mono"', 'ui-monospace', 'SFMono-Regular', 'monospace'],
-        serif: ['"Newsreader"', 'ui-serif', 'Georgia', 'serif'],
         sans: ['"Inter"', 'ui-sans-serif', 'system-ui', 'sans-serif'],
       },
       letterSpacing: {
@@ -43,10 +38,6 @@ export default {
           '0%, 49%': { opacity: '1' },
           '50%, 100%': { opacity: '0' },
         },
-        'gradient-pan': {
-          '0%, 100%': { backgroundPosition: '0% 50%' },
-          '50%': { backgroundPosition: '100% 50%' },
-        },
         sweep: {
           '0%': { transform: 'translateY(-100%)' },
           '100%': { transform: 'translateY(100%)' },
@@ -54,7 +45,6 @@ export default {
       },
       animation: {
         blink: 'blink 1s step-end infinite',
-        'gradient-pan': 'gradient-pan 8s ease infinite',
         sweep: 'sweep 4s linear infinite',
       },
     },

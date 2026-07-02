@@ -1,7 +1,6 @@
 import { useEffect } from 'react';
 import { motion, useScroll, useSpring } from 'framer-motion';
 import { useLenis } from './hooks/useLenis';
-import Cursor from './components/Cursor';
 import Nav from './components/Nav';
 import Footer from './components/Footer';
 import Hero from './components/sections/Hero';
@@ -19,7 +18,7 @@ export default function App() {
 
   // Easter egg: a note for the curious who open the console.
   useEffect(() => {
-    const style = 'color:#22d3ee;font-family:monospace;font-size:12px;';
+    const style = 'color:#4ade80;font-family:monospace;font-size:12px;';
     // eslint-disable-next-line no-console
     console.log('%c┌─ pablo.cunha ──────────────────┐', style);
     // eslint-disable-next-line no-console
@@ -33,8 +32,7 @@ export default function App() {
   }, []);
 
   return (
-    <div className="grain relative min-h-screen bg-base">
-      <Cursor />
+    <div className="scanlines relative min-h-screen bg-base">
       <Nav />
 
       {/* scroll progress rail */}

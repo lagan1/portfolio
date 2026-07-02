@@ -1,53 +1,47 @@
 import { profile } from '../data/content';
 import { scrollToSection } from '../hooks/useLenis';
 
+/** Bottom bar styled like a tmux status line. */
 export default function Footer() {
   const year = new Date().getFullYear();
   return (
-    <footer className="relative border-t border-line-strong">
-      <div className="blueprint-grid-fine pointer-events-none absolute inset-0 opacity-30" />
-      <div className="relative mx-auto max-w-7xl px-5 py-12 sm:px-8">
-        <div className="flex flex-col gap-8 sm:flex-row sm:items-center sm:justify-between">
+    <footer className="relative border-t border-line-strong font-mono">
+      <div className="mx-auto max-w-7xl px-5 py-10 sm:px-8">
+        <div className="flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
           <button
             onClick={() => scrollToSection('hero')}
-            data-cursor="link"
-            className="flex items-center gap-3 text-left"
+            className="group flex items-center gap-2 text-left text-xs"
           >
-            <span className="flex h-9 w-9 items-center justify-center border border-line-strong font-mono text-xs font-bold text-accent">
-              PC
+            <span className="bg-accent px-1.5 py-0.5 font-bold text-ink">0</span>
+            <span className="text-dim transition-colors group-hover:text-accent">
+              pablo@berlin:~/portfolio
             </span>
-            <div>
-              <div className="font-serif text-lg text-fg">{profile.name}</div>
-              <div className="font-mono text-[10px] uppercase tracking-widest text-faint">
-                back to top ↑
-              </div>
-            </div>
+            <span className="text-faint">— back to top ↑</span>
           </button>
 
-          <div className="flex flex-wrap gap-6">
+          <div className="flex flex-wrap gap-6 text-xs">
             {[
-              { label: 'GitHub', href: profile.github },
-              { label: 'LinkedIn', href: profile.linkedin },
-              { label: 'Email', href: `mailto:${profile.email}` },
+              { label: 'github', href: profile.github },
+              { label: 'linkedin', href: profile.linkedin },
+              { label: 'email', href: `mailto:${profile.email}` },
             ].map((l) => (
               <a
                 key={l.label}
                 href={l.href}
                 target={l.href.startsWith('mailto') ? undefined : '_blank'}
                 rel="noopener noreferrer"
-                data-cursor="link"
-                className="font-mono text-xs uppercase tracking-widest text-dim transition-colors hover:text-accent"
+                className="tracking-widest text-dim transition-colors hover:text-accent"
               >
-                {l.label}
+                [{l.label}]
               </a>
             ))}
           </div>
         </div>
 
-        <div className="mt-10 flex flex-col gap-2 border-t border-line pt-6 font-mono text-[10px] uppercase tracking-widest text-faint sm:flex-row sm:items-center sm:justify-between">
+        <div className="mt-8 flex flex-col gap-2 border-t border-line pt-5 text-[10px] uppercase tracking-widest text-faint sm:flex-row sm:items-center sm:justify-between">
           <span>© {year} {profile.name} — all rights reserved</span>
-          <span className="flex items-center gap-1.5">
-            Built with <span className="text-accent">♥</span> in Berlin · React · TS · Framer Motion
+          <span>
+            built with <span className="text-accent">♥</span> in berlin · react · ts · framer motion
           </span>
           <span>{profile.locationCoords}</span>
         </div>

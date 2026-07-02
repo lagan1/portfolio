@@ -182,10 +182,10 @@ export default function Terminal({ script = ENVSAFE_SCRIPT, title = 'envsafe' }:
   return (
     <div
       ref={ref}
-      className="corner-ticks relative w-full overflow-hidden border border-line-strong bg-[#070a0d] font-mono text-xs sm:text-sm"
+      className="corner-ticks relative w-full overflow-hidden border border-line-strong bg-[#070a08] font-mono text-xs sm:text-sm"
     >
       {/* title bar */}
-      <div className="flex items-center justify-between border-b border-line bg-[#0b0f13] px-4 py-2.5">
+      <div className="flex items-center justify-between border-b border-line bg-[#0c110d] px-4 py-2.5">
         <div className="flex items-center gap-1.5">
           <span className="h-2.5 w-2.5 rounded-full border border-line-strong" />
           <span className="h-2.5 w-2.5 rounded-full border border-line-strong" />
@@ -196,7 +196,6 @@ export default function Terminal({ script = ENVSAFE_SCRIPT, title = 'envsafe' }:
         </span>
         <button
           onClick={replay}
-          data-cursor="link"
           className="font-mono text-[10px] uppercase tracking-widest text-[#5b6770] transition-colors hover:text-accent"
           aria-label="Replay demo"
         >

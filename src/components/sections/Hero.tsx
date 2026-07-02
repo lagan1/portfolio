@@ -1,9 +1,24 @@
-import { motion, useScroll, useTransform } from 'framer-motion';
-import { useRef } from 'react';
+import { motion, useMotionValue, useScroll, useSpring, useTransform } from 'framer-motion';
+import { useEffect, useRef, useState } from 'react';
 import { profile } from '../../data/content';
 import { scrollToSection } from '../../hooks/useLenis';
-import Magnetic from '../Magnetic';
 import DecodeText from '../DecodeText';
+
+const ASCII_PABLO = `██████╗  █████╗ ██████╗ ██╗      ██████╗
+██╔══██╗██╔══██╗██╔══██╗██║     ██╔═══██╗
+██████╔╝███████║██████╔╝██║     ██║   ██║
+██╔═══╝ ██╔══██║██╔══██╗██║     ██║   ██║
+██║     ██║  ██║██████╔╝███████╗╚██████╔╝
+╚═╝     ╚═╝  ╚═╝╚═════╝ ╚══════╝ ╚═════╝`;
+
+const ASCII_CUNHA = ` ██████╗██╗   ██╗███╗   ██╗██╗  ██╗ █████╗
+██╔════╝██║   ██║████╗  ██║██║  ██║██╔══██╗
+██║     ██║   ██║██╔██╗ ██║███████║███████║
+██║     ██║   ██║██║╚██╗██║██╔══██║██╔══██║
+╚██████╗╚██████╔╝██║ ╚████║██║  ██║██║  ██║
+ ╚═════╝ ╚═════╝ ╚═╝  ╚═══╝╚═╝  ╚═╝╚═╝  ╚═╝`;
+
+const HOOK_ROTATE_MS = 7000;
 
 export default function Hero() {
   const ref = useRef<HTMLElement>(null);
@@ -11,80 +26,120 @@ export default function Hero() {
   const y = useTransform(scrollYProgress, [0, 1], [0, 120]);
   const opacity = useTransform(scrollYProgress, [0, 0.7], [1, 0]);
 
+  // Rotate through the hook lines, re-decoding each one
+  const [hookIndex, setHookIndex] = useState(0);
+  useEffect(() => {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    const id = setInterval(
+      () => setHookIndex((i) => (i + 1) % profile.hooks.length),
+      HOOK_ROTATE_MS
+    );
+    return () => clearInterval(id);
+  }, []);
+
+  // Spotlight trailing the pointer — transform-only, no repaints (desktop)
+  const mx = useMotionValue(-1200);
+  const my = useMotionValue(-1200);
+  const sx = useSpring(mx, { stiffness: 80, damping: 22, mass: 0.4 });
+  const sy = useSpring(my, { stiffness: 80, damping: 22, mass: 0.4 });
+
+  const onMouseMove = (e: React.MouseEvent<HTMLElement>) => {
+    const rect = ref.current?.getBoundingClientRect();
+    if (!rect) return;
+    mx.set(e.clientX - rect.left);
+    my.set(e.clientY - rect.top);
+  };
+
   return (
     <section
       id="hero"
       ref={ref}
-      className="relative flex min-h-[100svh] flex-col justify-center overflow-hidden px-5 pt-24 sm:px-8"
+      onMouseMove={onMouseMove}
+      className="relative flex min-h-[100svh] flex-col justify-center overflow-hidden px-5 pt-20 font-mono sm:px-8"
     >
-      {/* Blueprint backdrop */}
-      <div className="blueprint-grid pointer-events-none absolute inset-0 opacity-70" />
-      <div className="mesh-accent pointer-events-none absolute inset-0 opacity-60" />
-      {/* dimension frame */}
-      <div className="pointer-events-none absolute inset-5 hidden border border-line sm:block sm:inset-8" />
-      <span className="dim-label pointer-events-none absolute left-8 top-1/2 hidden -translate-y-1/2 -rotate-90 sm:block">
-        {profile.locationCoords}
-      </span>
-      <span className="dim-label pointer-events-none absolute right-8 top-1/2 hidden -translate-y-1/2 rotate-90 sm:block">
-        FIG.00 — INDEX
-      </span>
+      <motion.div
+        className="pointer-events-none absolute left-0 top-0 hidden rounded-full lg:block"
+        style={{
+          x: sx,
+          y: sy,
+          width: 1120,
+          height: 1120,
+          marginLeft: -560,
+          marginTop: -560,
+          background: 'radial-gradient(circle, rgba(74, 222, 128, 0.07), transparent 60%)',
+          willChange: 'transform',
+        }}
+        aria-hidden
+      />
 
       <motion.div style={{ y, opacity }} className="relative mx-auto w-full max-w-7xl">
-        {/* meta row */}
+        {/* prompt line */}
         <motion.div
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.1 }}
-          className="mb-8 flex flex-wrap items-center gap-x-4 gap-y-2"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.6, delay: 0.1 }}
+          className="mb-6 flex flex-wrap items-center gap-x-4 gap-y-2 text-xs sm:text-sm"
         >
-          <span className="flex items-center gap-2 font-mono text-xs tracking-wide text-dim">
+          <span>
+            <span className="text-accent">pablo@berlin</span>
+            <span className="text-faint">:~$</span> <span className="text-fg">whoami</span>
+          </span>
+          <span className="hidden h-3 w-px bg-line-strong sm:block" />
+          <span className="flex items-center gap-2 text-dim">
             <span className="relative flex h-2 w-2">
               <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent opacity-60" />
               <span className="relative inline-flex h-2 w-2 rounded-full bg-accent" />
             </span>
             OPEN TO WORK
           </span>
-          <span className="h-3 w-px bg-line-strong" />
-          <span className="font-mono text-xs tracking-wide text-faint">{profile.location}</span>
+          <span className="text-faint">{profile.location}</span>
         </motion.div>
 
-        {/* Name */}
-        <h1 className="font-serif tracking-tightest text-fg">
-          <motion.span
-            initial={{ opacity: 0, y: 30 }}
+        {/* ASCII name */}
+        <div aria-label={profile.name} role="heading" aria-level={1}>
+          <motion.pre
+            aria-hidden
+            initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.9, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-            className="block text-[15vw] leading-[0.88] sm:text-[12vw] lg:text-[10rem]"
+            transition={{ duration: 0.9, delay: 0.25, ease: [0.16, 1, 0.3, 1] }}
+            className="phosphor select-none overflow-x-hidden text-accent"
+            style={{ fontSize: 'clamp(7px, 2.2vw, 28px)', lineHeight: 1.08 }}
           >
-            {profile.firstName}
-          </motion.span>
-          <motion.span
-            initial={{ opacity: 0, y: 30 }}
+            {ASCII_PABLO}
+          </motion.pre>
+          <motion.pre
+            aria-hidden
+            initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.9, delay: 0.32, ease: [0.16, 1, 0.3, 1] }}
-            className="block text-[15vw] leading-[0.88] text-dim sm:text-[12vw] lg:text-[10rem]"
+            transition={{ duration: 0.9, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
+            className="mt-3 select-none overflow-x-hidden text-fg"
+            style={{ fontSize: 'clamp(7px, 2.2vw, 28px)', lineHeight: 1.08 }}
           >
-            {profile.lastName}
-            <span className="text-accent">.</span>
-          </motion.span>
-        </h1>
+            {ASCII_CUNHA}
+          </motion.pre>
+        </div>
 
         {/* role + hook */}
-        <div className="mt-8 grid gap-8 md:mt-12 md:grid-cols-[1fr_auto] md:items-end">
+        <div className="mt-10 grid gap-8 md:mt-14 md:grid-cols-[1fr_auto] md:items-end">
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ duration: 0.8, delay: 0.5 }}
+            transition={{ duration: 0.8, delay: 0.6 }}
             className="max-w-xl"
           >
-            <div className="mb-4 flex items-center gap-3">
-              <span className="h-px w-8 bg-accent" />
-              <span className="font-mono text-xs uppercase tracking-[0.2em] text-accent">
-                {profile.title} / {profile.specialty}
-              </span>
-            </div>
-            <p className="font-serif text-2xl leading-snug text-fg sm:text-3xl">
-              <DecodeText text={profile.hooks[0]} speed={22} triggerOnView={false} />
+            <p className="text-xs uppercase tracking-[0.2em] text-dim sm:text-sm">
+              <span className="text-faint"># </span>
+              {profile.title} — {profile.specialty}
+            </p>
+            <p className="mt-4 min-h-[3em] text-lg leading-relaxed text-fg sm:text-xl">
+              <span className="text-accent">&gt; </span>
+              <DecodeText
+                key={hookIndex}
+                text={profile.hooks[hookIndex]}
+                speed={22}
+                triggerOnView={false}
+              />
+              <span className="ml-1 inline-block h-4 w-2 translate-y-0.5 animate-blink bg-accent" />
             </p>
           </motion.div>
 
@@ -92,32 +147,24 @@ export default function Hero() {
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.65 }}
+            transition={{ duration: 0.8, delay: 0.75 }}
             className="flex flex-col gap-3 sm:flex-row md:flex-col"
           >
-            <Magnetic>
-              <button
-                onClick={() => scrollToSection('projects')}
-                data-cursor="link"
-                data-cursor-label="view"
-                className="group relative flex items-center justify-center gap-3 overflow-hidden border border-accent px-7 py-3.5 font-mono text-xs uppercase tracking-widest text-accent transition-colors"
-              >
-                <span className="absolute inset-0 origin-left scale-x-0 bg-accent transition-transform duration-300 group-hover:scale-x-100" />
-                <span className="relative transition-colors duration-300 group-hover:text-ink">
-                  View the work
-                </span>
-                <span className="relative transition-colors duration-300 group-hover:text-ink">→</span>
-              </button>
-            </Magnetic>
-            <Magnetic>
-              <button
-                onClick={() => scrollToSection('contact')}
-                data-cursor="link"
-                className="flex items-center justify-center gap-2 border border-line-strong px-7 py-3.5 font-mono text-xs uppercase tracking-widest text-dim transition-colors hover:border-accent hover:text-fg"
-              >
-                Get in touch
-              </button>
-            </Magnetic>
+            <button
+              onClick={() => scrollToSection('projects')}
+              className="group relative flex items-center justify-center gap-3 overflow-hidden border border-accent px-7 py-3.5 text-xs uppercase tracking-widest text-accent"
+            >
+              <span className="absolute inset-0 origin-left scale-x-0 bg-accent transition-transform duration-300 group-hover:scale-x-100" />
+              <span className="relative transition-colors duration-300 group-hover:text-ink">
+                [ view the work ]
+              </span>
+            </button>
+            <button
+              onClick={() => scrollToSection('contact')}
+              className="flex items-center justify-center border border-line-strong px-7 py-3.5 text-xs uppercase tracking-widest text-dim transition-colors hover:border-accent hover:text-fg"
+            >
+              [ get in touch ]
+            </button>
           </motion.div>
         </div>
       </motion.div>
@@ -130,16 +177,15 @@ export default function Hero() {
         transition={{ delay: 1.2 }}
         className="absolute bottom-6 left-1/2 flex -translate-x-1/2 flex-col items-center gap-2"
         aria-label="Scroll down"
-        data-cursor="link"
       >
-        <span className="dim-label">SCROLL</span>
-        <span className="relative h-10 w-px overflow-hidden bg-line-strong">
-          <motion.span
-            className="absolute inset-x-0 top-0 h-4 bg-accent"
-            animate={{ y: [-16, 40] }}
-            transition={{ duration: 1.8, repeat: Infinity, ease: 'easeInOut' }}
-          />
-        </span>
+        <span className="dim-label">scroll</span>
+        <motion.span
+          className="text-xs text-accent"
+          animate={{ y: [0, 6, 0] }}
+          transition={{ duration: 1.6, repeat: Infinity, ease: 'easeInOut' }}
+        >
+          ▼
+        </motion.span>
       </motion.button>
     </section>
   );

@@ -9,9 +9,9 @@ export default function Skills() {
 
   return (
     <section id="skills" className="relative mx-auto max-w-7xl px-5 py-24 sm:px-8 md:py-32">
-      <SectionHeader index="04 / STACK" title="What I work with" note="6 DOMAINS" />
+      <SectionHeader cmd="tree ~/stack -L 2" title="what i work with" note="6 DOMAINS" />
 
-      <div className="grid gap-px border border-line-strong bg-[var(--line)] md:grid-cols-2 lg:grid-cols-3">
+      <div className="grid gap-px border border-line-strong bg-[var(--line)] font-mono md:grid-cols-2 lg:grid-cols-3">
         {skills.map((group, gi) => (
           <Reveal key={group.category} delay={gi * 0.05}>
             <div
@@ -20,14 +20,15 @@ export default function Skills() {
               onMouseLeave={() => setActive(null)}
             >
               {/* corner code */}
-              <span className="absolute right-4 top-4 font-mono text-[10px] tracking-widest text-faint transition-colors group-hover:text-accent">
+              <span className="absolute right-4 top-4 text-[10px] tracking-widest text-faint transition-colors group-hover:text-accent">
                 {group.code}
               </span>
 
-              <div className="flex items-center gap-3">
-                <span className="h-px w-6 bg-accent transition-all duration-300 group-hover:w-10" />
-                <h3 className="font-serif text-2xl tracking-tightest text-fg">{group.category}</h3>
-              </div>
+              <h3 className="text-xl font-bold tracking-tightest text-fg">
+                <span className="font-normal text-faint">├── </span>
+                {group.category.toLowerCase()}
+                <span className="text-faint">/</span>
+              </h3>
 
               <div className="mt-6 flex flex-wrap gap-2">
                 {group.skills.map((skill, si) => (
@@ -38,7 +39,7 @@ export default function Skills() {
                       opacity: active === null || active === group.code ? 1 : 0.4,
                     }}
                     transition={{ delay: si * 0.02 }}
-                    className="border border-line px-3 py-1.5 font-mono text-xs text-dim transition-colors hover:border-accent hover:text-accent"
+                    className="border border-line px-3 py-1.5 text-xs text-dim transition-colors hover:border-accent hover:text-accent"
                   >
                     {skill}
                   </motion.span>
@@ -46,8 +47,8 @@ export default function Skills() {
               </div>
 
               {/* count */}
-              <span className="mt-6 block font-mono text-[10px] text-faint">
-                {String(group.skills.length).padStart(2, '0')} ENTRIES
+              <span className="mt-6 block text-[10px] text-faint">
+                {String(group.skills.length).padStart(2, '0')} entries
               </span>
             </div>
           </Reveal>

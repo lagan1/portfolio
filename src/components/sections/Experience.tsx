@@ -1,65 +1,75 @@
-import { motion } from 'framer-motion';
 import { experience } from '../../data/content';
 import SectionHeader from '../SectionHeader';
 import Reveal from '../Reveal';
 
+/** Deterministic fake commit hash from a string. */
+function fakeHash(input: string): string {
+  let h = 0x811c9dc5;
+  for (let i = 0; i < input.length; i++) {
+    h ^= input.charCodeAt(i);
+    h = Math.imul(h, 0x01000193);
+  }
+  return (h >>> 0).toString(16).padStart(8, '0').slice(0, 7);
+}
+
 export default function Experience() {
   return (
     <section id="experience" className="relative mx-auto max-w-7xl px-5 py-24 sm:px-8 md:py-32">
-      <SectionHeader index="03 / PATH" title="The career so far" note="2020 → NOW" />
+      <SectionHeader cmd="git log --career --reverse=false" title="the career so far" note="2020 → NOW" />
 
-      <div className="relative">
-        {/* vertical rail */}
-        <div className="absolute left-0 top-2 hidden h-full w-px bg-line-strong sm:left-[7.5rem] sm:block" />
+      <div className="relative font-mono">
+        {/* git graph rail */}
+        <div className="absolute left-[3px] top-2 hidden h-full w-px bg-line-strong sm:block" />
 
-        <div className="space-y-px">
+        <div className="space-y-2">
           {experience.map((job, i) => (
             <Reveal key={job.company} delay={i * 0.06}>
-              <div className="group relative grid gap-2 py-8 sm:grid-cols-[7.5rem_1fr] sm:gap-8">
-                {/* year + node */}
-                <div className="relative flex items-center gap-3 sm:block">
-                  <span className="font-mono text-sm text-accent">{job.start}</span>
-                  <span className="absolute -left-[5px] top-1.5 hidden h-2.5 w-2.5 rounded-full border border-accent bg-base transition-colors group-hover:bg-accent sm:left-[7.5rem] sm:block" />
+              <div className="group relative py-6 sm:pl-10">
+                {/* graph node */}
+                <span className="absolute -left-[2px] top-8 hidden h-3 w-3 rounded-full border border-accent bg-base transition-colors group-hover:bg-accent sm:block" />
+
+                {/* commit line */}
+                <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1 text-xs sm:text-sm">
+                  <span className="text-warn">{fakeHash(job.company + job.role)}</span>
+                  {i === 0 && (
+                    <span className="text-xs">
+                      <span className="text-faint">(</span>
+                      <span className="text-accent">HEAD → now</span>
+                      <span className="text-faint">)</span>
+                    </span>
+                  )}
+                  <span className="text-faint">{job.period}</span>
+                  <span className="text-faint">· {job.location}</span>
                 </div>
 
-                {/* content */}
-                <div className="sm:pl-8">
-                  <div className="flex flex-wrap items-baseline justify-between gap-2">
-                    <h3 className="font-serif text-2xl tracking-tightest text-fg transition-colors group-hover:text-accent sm:text-3xl">
-                      {job.company}
-                    </h3>
-                    <span className="font-mono text-xs text-faint">{job.period}</span>
-                  </div>
-                  <p className="mt-1 font-mono text-sm text-dim">{job.role}</p>
-
-                  <ul className="mt-4 space-y-2">
-                    {job.points.map((pt) => (
-                      <li key={pt} className="flex gap-3 text-sm leading-relaxed text-dim">
-                        <span className="mt-2 h-px w-3 flex-shrink-0 bg-accent" />
-                        <span>{pt}</span>
-                      </li>
-                    ))}
-                  </ul>
-
-                  <div className="mt-5 flex flex-wrap gap-2">
-                    {job.tags.map((t) => (
-                      <span
-                        key={t}
-                        className="border border-line px-2.5 py-1 font-mono text-[11px] text-dim"
-                      >
-                        {t}
-                      </span>
-                    ))}
-                  </div>
+                <div className="mt-2 flex flex-wrap items-baseline justify-between gap-2">
+                  <h3 className="text-2xl font-bold tracking-tightest text-fg transition-colors group-hover:text-accent sm:text-3xl">
+                    {job.company}
+                  </h3>
+                  <span className="text-sm text-dim">{job.role}</span>
                 </div>
 
-                <motion.span
-                  className="absolute bottom-0 left-0 hidden h-px bg-line sm:block"
-                  initial={{ width: '0%' }}
-                  whileInView={{ width: '100%' }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.8, delay: 0.2 }}
-                />
+                {/* diff-style points */}
+                <ul className="mt-4 space-y-1.5">
+                  {job.points.map((pt) => (
+                    <li key={pt} className="flex gap-3 text-sm leading-relaxed">
+                      <span className="flex-shrink-0 select-none text-accent">+</span>
+                      <span className="font-sans text-dim">{pt}</span>
+                    </li>
+                  ))}
+                </ul>
+
+                <div className="mt-5 flex flex-wrap gap-x-3 gap-y-2 text-[11px]">
+                  {job.tags.map((t) => (
+                    <span key={t} className="text-dim">
+                      <span className="text-faint">[</span>
+                      {t}
+                      <span className="text-faint">]</span>
+                    </span>
+                  ))}
+                </div>
+
+                <div className="rule-dashed absolute bottom-0 left-0 right-0 hidden sm:left-10 sm:block" />
               </div>
             </Reveal>
           ))}
