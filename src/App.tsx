@@ -26,7 +26,7 @@ export default function App() {
     // eslint-disable-next-line no-console
     console.log('%c│  try harder. — HoF @ Google, NASA  │', style);
     // eslint-disable-next-line no-console
-    console.log('%c│  hire me → laganparihar2005@gmail  │', style);
+    console.log('%c│  hire me → linkedin.com/in/laganparihar │', style);
     // eslint-disable-next-line no-console
     console.log('%c└────────────────────────────────────┘', style);
   }, []);

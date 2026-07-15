@@ -23,12 +23,11 @@ export default function Footer() {
             {[
               { label: 'github', href: profile.github },
               { label: 'linkedin', href: profile.linkedin },
-              { label: 'email', href: `mailto:${profile.email}` },
             ].map((l) => (
               <a
                 key={l.label}
                 href={l.href}
-                target={l.href.startsWith('mailto') ? undefined : '_blank'}
+                target="_blank"
                 rel="noopener noreferrer"
                 className="tracking-widest text-dim transition-colors hover:text-accent"
               >

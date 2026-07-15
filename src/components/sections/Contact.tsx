@@ -3,7 +3,6 @@ import SectionHeader from '../SectionHeader';
 import Reveal from '../Reveal';
 
 const CHANNELS = [
-  { label: 'email', value: profile.email, href: `mailto:${profile.email}`, code: 'SMTP' },
   { label: 'linkedin', value: 'in/laganparihar', href: profile.linkedin, code: 'PROF' },
   { label: 'github', value: `@${profile.githubHandle}`, href: profile.github, code: 'REPO' },
 ];
@@ -25,12 +24,14 @@ export default function Contact() {
           </p>
 
           <a
-            href={`mailto:${profile.email}`}
+            href={profile.linkedin}
+            target="_blank"
+            rel="noopener noreferrer"
             className="group relative mt-10 inline-flex items-center gap-4 overflow-hidden border border-accent px-8 py-5"
           >
             <span className="absolute inset-0 origin-left scale-x-0 bg-accent transition-transform duration-300 ease-out group-hover:scale-x-100" />
             <span className="relative text-lg font-bold text-accent transition-colors duration-300 group-hover:text-ink sm:text-xl">
-              $ mail lagan
+              $ Contact lagan
             </span>
             <span className="relative text-accent transition-all duration-300 group-hover:translate-x-1 group-hover:text-ink">
               ↵
@@ -45,7 +46,7 @@ export default function Contact() {
               <a
                 key={c.label}
                 href={c.href}
-                target={c.href.startsWith('mailto') ? undefined : '_blank'}
+                target="_blank"
                 rel="noopener noreferrer"
                 className="group flex items-center justify-between bg-base p-6 transition-colors hover:bg-soft sm:p-8"
               >
