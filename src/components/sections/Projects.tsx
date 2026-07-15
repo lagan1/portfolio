@@ -3,12 +3,10 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { projects, type Project } from '../../data/content';
 import SectionHeader from '../SectionHeader';
 import Reveal from '../Reveal';
-import splitterImg from '../../assets/projects/splitter.png';
-import blueMoonImg from '../../assets/projects/blue-moon.png';
 
 const PROJECT_IMAGES: Record<string, string> = {
-  splitter: splitterImg,
-  'blue-moon': blueMoonImg,
+  splitter: '/splitter.png',
+  'blue-moon': '/blue-moon.png',
 };
 
 export default function Projects() {
