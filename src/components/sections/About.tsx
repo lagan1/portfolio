@@ -39,13 +39,13 @@ export default function About() {
         <Reveal delay={0.15}>
           <div className="corner-ticks relative w-full max-w-sm border border-line-strong">
             <div className="flex items-center justify-between border-b border-line bg-soft px-3 py-2 font-mono text-[10px] uppercase tracking-widest text-faint">
-              <span>feh — pablo.jpg</span>
+              <span>feh — lagan.jpg</span>
               <span className="text-accent">●rec</span>
             </div>
             <div className="group relative aspect-[4/5] overflow-hidden">
               <img
-                src="/pablo.jpg"
-                alt="Pablo Cunha"
+                src="/lagan.jpg"
+                alt="Lagan Parihar"
                 width={900}
                 height={1600}
                 loading="lazy"

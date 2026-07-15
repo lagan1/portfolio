@@ -8,13 +8,13 @@ interface SectionHeaderProps {
   note?: string;
 }
 
-/** Section header framed as a shell prompt: pablo@berlin:~$ <cmd> */
+/** Section header framed as a shell prompt: lagan@kali:~$ <cmd> */
 export default function SectionHeader({ cmd, title, note }: SectionHeaderProps) {
   return (
     <Reveal className="mb-12 md:mb-16">
       <div className="flex items-center gap-3 font-mono text-xs sm:text-sm">
         <span className="whitespace-nowrap">
-          <span className="text-accent">pablo@berlin</span>
+          <span className="text-accent">lagan@kali</span>
           <span className="text-faint">:~$</span>
         </span>
         <span className="truncate text-fg">{cmd}</span>

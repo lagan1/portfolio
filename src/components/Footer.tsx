@@ -14,7 +14,7 @@ export default function Footer() {
           >
             <span className="bg-accent px-1.5 py-0.5 font-bold text-ink">0</span>
             <span className="text-dim transition-colors group-hover:text-accent">
-              pablo@berlin:~/portfolio
+              lagan@kali:~/portfolio
             </span>
             <span className="text-faint">— back to top ↑</span>
           </button>
@@ -41,7 +41,7 @@ export default function Footer() {
         <div className="mt-8 flex flex-col gap-2 border-t border-line pt-5 text-[10px] uppercase tracking-widest text-faint sm:flex-row sm:items-center sm:justify-between">
           <span>© {year} {profile.name} — all rights reserved</span>
           <span>
-            built with <span className="text-accent">♥</span> in berlin · react · ts · framer motion
+            built with <span className="text-accent">♥</span> in jodhpur · react · ts · framer motion
           </span>
           <span>{profile.locationCoords}</span>
         </div>

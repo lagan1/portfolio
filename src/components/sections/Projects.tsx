@@ -3,11 +3,12 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { projects, type Project } from '../../data/content';
 import SectionHeader from '../SectionHeader';
 import Reveal from '../Reveal';
-import Terminal, { ENVSAFE_SCRIPT, SECHEADERS_SCRIPT, type Line } from '../Terminal';
+import splitterImg from '../../assets/projects/splitter.png';
+import blueMoonImg from '../../assets/projects/blue-moon.png';
 
-const TERMINAL_SCRIPTS: Record<string, Line[]> = {
-  envsafe: ENVSAFE_SCRIPT,
-  secheaders: SECHEADERS_SCRIPT,
+const PROJECT_IMAGES: Record<string, string> = {
+  splitter: splitterImg,
+  'blue-moon': blueMoonImg,
 };
 
 export default function Projects() {
@@ -89,11 +90,17 @@ function Flagship({ project }: { project: Project }) {
           </div>
         </div>
 
-        {/* Right: terminal */}
-        <div className="flex items-center">
-          <Terminal script={TERMINAL_SCRIPTS[project.id]} title={project.name} />
-        </div>
-      </div>
+{/* Right: project screenshot */}
+<div className="flex items-center">
+  <div className="overflow-hidden rounded-xl border border-line bg-[#0b0b0b]">
+    <img
+      src={PROJECT_IMAGES[project.id]}
+      alt={project.name}
+      className="w-full h-auto object-cover"
+    />
+  </div>
+</div>
+</div>
     </Reveal>
   );
 }

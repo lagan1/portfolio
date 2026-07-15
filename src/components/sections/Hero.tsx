@@ -4,19 +4,19 @@ import { profile } from '../../data/content';
 import { scrollToSection } from '../../hooks/useLenis';
 import DecodeText from '../DecodeText';
 
-const ASCII_PABLO = `██████╗  █████╗ ██████╗ ██╗      ██████╗
-██╔══██╗██╔══██╗██╔══██╗██║     ██╔═══██╗
-██████╔╝███████║██████╔╝██║     ██║   ██║
-██╔═══╝ ██╔══██║██╔══██╗██║     ██║   ██║
-██║     ██║  ██║██████╔╝███████╗╚██████╔╝
-╚═╝     ╚═╝  ╚═╝╚═════╝ ╚══════╝ ╚═════╝`;
+const ASCII_LAGAN = `██╗      █████╗  ██████╗  █████╗ ███╗   ██╗
+██║     ██╔══██╗██╔════╝ ██╔══██╗████╗  ██║
+██║     ███████║██║  ███╗███████║██╔██╗ ██║
+██║     ██╔══██║██║   ██║██╔══██║██║╚██╗██║
+███████╗██║  ██║╚██████╔╝██║  ██║██║ ╚████║
+╚══════╝╚═╝  ╚═╝ ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═══╝`;
 
-const ASCII_CUNHA = ` ██████╗██╗   ██╗███╗   ██╗██╗  ██╗ █████╗
-██╔════╝██║   ██║████╗  ██║██║  ██║██╔══██╗
-██║     ██║   ██║██╔██╗ ██║███████║███████║
-██║     ██║   ██║██║╚██╗██║██╔══██║██╔══██║
-╚██████╗╚██████╔╝██║ ╚████║██║  ██║██║  ██║
- ╚═════╝ ╚═════╝ ╚═╝  ╚═══╝╚═╝  ╚═╝╚═╝  ╚═╝`;
+const ASCII_PARIHAR = `██████╗  █████╗ ██████╗ ██╗██╗  ██╗ █████╗ ██████╗
+██╔══██╗██╔══██╗██╔══██╗██║██║  ██║██╔══██╗██╔══██╗
+██████╔╝███████║██████╔╝██║███████║███████║██████╔╝
+██╔═══╝ ██╔══██║██╔══██╗██║██╔══██║██╔══██║██╔══██╗
+██║     ██║  ██║██║  ██║██║██║  ██║██║  ██║██║  ██║
+╚═╝     ╚═╝  ╚═╝╚═╝  ╚═╝╚═╝╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═╝`;
 
 const HOOK_ROTATE_MS = 7000;
 
@@ -81,7 +81,7 @@ export default function Hero() {
           className="mb-6 flex flex-wrap items-center gap-x-4 gap-y-2 text-xs sm:text-sm"
         >
           <span>
-            <span className="text-accent">pablo@berlin</span>
+            <span className="text-accent">lagan@kali</span>
             <span className="text-faint">:~$</span> <span className="text-fg">whoami</span>
           </span>
           <span className="hidden h-3 w-px bg-line-strong sm:block" />
@@ -105,7 +105,7 @@ export default function Hero() {
             className="phosphor select-none overflow-x-hidden text-accent"
             style={{ fontSize: 'clamp(7px, 2.2vw, 28px)', lineHeight: 1.08 }}
           >
-            {ASCII_PABLO}
+            {ASCII_LAGAN}
           </motion.pre>
           <motion.pre
             aria-hidden
@@ -115,7 +115,7 @@ export default function Hero() {
             className="mt-3 select-none overflow-x-hidden text-fg"
             style={{ fontSize: 'clamp(7px, 2.2vw, 28px)', lineHeight: 1.08 }}
           >
-            {ASCII_CUNHA}
+            {ASCII_PARIHAR}
           </motion.pre>
         </div>
 

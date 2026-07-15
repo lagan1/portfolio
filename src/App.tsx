@@ -20,15 +20,15 @@ export default function App() {
   useEffect(() => {
     const style = 'color:#4ade80;font-family:monospace;font-size:12px;';
     // eslint-disable-next-line no-console
-    console.log('%c┌─ pablo.cunha ──────────────────┐', style);
+    console.log('%c┌─ lagan.parihar ────────────────────┐', style);
     // eslint-disable-next-line no-console
     console.log('%c│  poking around? i like that.   │', style);
     // eslint-disable-next-line no-console
-    console.log('%c│  $ pip install envsafe         │', style);
+    console.log('%c│  try harder. — HoF @ Google, NASA  │', style);
     // eslint-disable-next-line no-console
-    console.log('%c│  hire me → pabloncf@gmail.com  │', style);
+    console.log('%c│  hire me → laganparihar2005@gmail  │', style);
     // eslint-disable-next-line no-console
-    console.log('%c└────────────────────────────────┘', style);
+    console.log('%c└────────────────────────────────────┘', style);
   }, []);
 
   return (

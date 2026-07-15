@@ -4,7 +4,7 @@ import Reveal from '../Reveal';
 
 const CHANNELS = [
   { label: 'email', value: profile.email, href: `mailto:${profile.email}`, code: 'SMTP' },
-  { label: 'linkedin', value: 'in/pabloncf', href: profile.linkedin, code: 'PROF' },
+  { label: 'linkedin', value: 'in/laganparihar', href: profile.linkedin, code: 'PROF' },
   { label: 'github', value: `@${profile.githubHandle}`, href: profile.github, code: 'REPO' },
 ];
 
@@ -17,10 +17,10 @@ export default function Contact() {
         {/* big CTA */}
         <Reveal>
           <p className="font-sans text-2xl leading-snug text-fg sm:text-3xl">
-            Looking for a backend or security engineer who sweats the details?
+            Looking for a security engineer who finds what your scanners miss?
           </p>
           <p className="mt-6 max-w-md font-sans text-base leading-relaxed text-dim">
-            I'm in Berlin and open to roles across Europe and remote-global teams. Drop me a line —
+            I'm based in India and open to remote and on-site security roles globally. Drop me a line —
             I read everything and reply fast.
           </p>
 
@@ -30,7 +30,7 @@ export default function Contact() {
           >
             <span className="absolute inset-0 origin-left scale-x-0 bg-accent transition-transform duration-300 ease-out group-hover:scale-x-100" />
             <span className="relative text-lg font-bold text-accent transition-colors duration-300 group-hover:text-ink sm:text-xl">
-              $ mail pablo
+              $ mail lagan
             </span>
             <span className="relative text-accent transition-all duration-300 group-hover:translate-x-1 group-hover:text-ink">
               ↵

@@ -67,7 +67,7 @@ export default function Nav() {
           >
             <span className="bg-accent px-1.5 py-0.5 font-bold text-ink">0</span>
             <span className="tracking-wider text-dim transition-colors group-hover:text-accent">
-              pablo@berlin
+              lagan@kali
             </span>
           </button>
 
