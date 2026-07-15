@@ -8,8 +8,8 @@ import blueMoonImg from '../../assets/projects/blue-moon.png';
 
 
 const PROJECT_IMAGES: Record<string, string> = {
-  splitter: '/splitter.png',
-  'blue-moon': '/blue-moon.png',
+  splitter: splitterImg,
+  'blue-moon': blueMoonImg,
 };
 
 export default function Projects() {
