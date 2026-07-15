@@ -1,4 +1,4 @@
-# Pablo Cunha — Portfolio
+# Lagan — Portfolio
 
 A blueprint/schematic-themed personal portfolio for a backend & security engineer.
 Dark by default, light mode optional. Built to make recruiters stop scrolling.
@@ -66,13 +66,13 @@ the components read from it. No need to touch JSX for content changes.
 
 ### Add your photo
 
-Drop a 4:5 image at `public/pablo.jpg`, then swap the placeholder block in
-`src/components/sections/About.tsx` for an `<img src="/pablo.jpg" />`.
+Drop a 4:5 image at `public/lagan.jpg`, then swap the placeholder block in
+`src/components/sections/About.tsx` for an `<img src="/lagan.jpg" />`.
 
 ### Social preview image
 
 Add `public/og.png` (1200×630) for rich link previews. Meta tags already point to it
-in `index.html` — update the `pablocunha.dev` URLs to your real domain.
+in `index.html` — update the `lagan.dev` URLs to your real domain.
 
 ---
 
@@ -110,4 +110,4 @@ Either way: build command `npm run build`, output directory `dist`.
 
 ---
 
-Built with ♥ in Berlin.
+Built with ♥.
