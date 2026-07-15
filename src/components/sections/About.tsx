@@ -50,7 +50,7 @@ export default function About() {
                 height={1600}
                 loading="lazy"
                 decoding="async"
-                className="absolute inset-0 h-full w-full object-cover object-center grayscale transition-all duration-700 group-hover:grayscale-0"
+		className="absolute inset-0 h-full w-full object-cover object-center transition-transform duration-700 group-hover:scale-105"
               />
               <div
                 className="pointer-events-none absolute inset-0 mix-blend-overlay"
